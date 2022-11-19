@@ -1,4 +1,5 @@
 // Copyright 2016 PingCAP, Inc.
+// Copyright 2022 Maytle, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package decimaltest
+package go-decimal
 
 import (
 	// "encoding/json"
@@ -1565,6 +1566,23 @@ func (d *Decimal) Compare(to *Decimal) int {
 		return -1
 	}
 	return 1
+}
+
+func (d *Decimal) GreaterThan(d2 *Decimal) bool {
+	return d.Compare(d2) == 1
+}
+func (d *Decimal) GreaterEqualThan(d2 *Decimal) bool {
+	cmp := d.Compare(d2)
+	return cmp == 1 || cmp == 0
+}
+
+func (d *Decimal) LessThan(d2 *Decimal) bool {
+	return d.Compare(d2) == -1
+}
+
+func (d *Decimal) LessThanEqual(d2 *Decimal) bool {
+	cmp := d.Compare(d2)
+	return cmp == -1 || cmp == 0
 }
 
 // None of ToBin, ToFloat64, or ToString can encode MyDecimal without loss.
