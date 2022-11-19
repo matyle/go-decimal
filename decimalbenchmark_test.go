@@ -21,12 +21,12 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-var bench1Str = "135.902348"
+var bench1Str = "135.348"
 var bench1Bytes = []byte(bench1Str)
-var bench2String = "121.234234"
+var bench2String = "121.34"
 var bench2Bytes = []byte(bench2String)
 
-func ShopspringDecimalCase1() decimal.Decimal {
+func shopspringDecimalCase() decimal.Decimal {
 	dec1, err := decimal.NewFromString(bench1Str)
 	if err != nil {
 		log.Fatal(err)
@@ -36,7 +36,7 @@ func ShopspringDecimalCase1() decimal.Decimal {
 	return dec3
 }
 
-func TidbDecimalCase1() *Decimal {
+func goDecimalCase() *Decimal {
 	dec1 := new(Decimal)
 	err := dec1.FromString(bench1Bytes)
 	if err != nil {
@@ -51,7 +51,7 @@ func TidbDecimalCase1() *Decimal {
 	return dec3
 }
 
-func ShopspringDecimalCase2() decimal.Decimal {
+func shopspringDecimalCaseB() decimal.Decimal {
 	dec1, err := decimal.NewFromString(bench2String)
 	if err != nil {
 		log.Fatal(err)
@@ -63,7 +63,7 @@ func ShopspringDecimalCase2() decimal.Decimal {
 	return dec1
 }
 
-func TidbDecimalCase2() *Decimal {
+func goDecimalCaseB() *Decimal {
 	dec1 := new(Decimal)
 	dec1.FromString(bench2Bytes)
 	dec2 := new(Decimal)
@@ -75,32 +75,26 @@ func TidbDecimalCase2() *Decimal {
 
 }
 
-// case1: 135.90*100 ====
 func BenchmarkShopspringDecimalCase1(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ShopspringDecimalCase1()
+		shopspringDecimalCase()
 	}
-	// b.Log(ShopspringDecimalCase1()) // output: 13590
 }
 
-func BenchmarkTidbDecimalCase1(b *testing.B) {
+func BenchmarkGoDecimalCase1(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		TidbDecimalCase1()
+		goDecimalCase()
 	}
-	// b.Log(TidbDecimalCase1()) //  output: 13590.00
 }
 
-// case2: 0.1 add 10 times ===
 func BenchmarkShopspringDecimalCase2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ShopspringDecimalCase2()
+		shopspringDecimalCaseB()
 	}
-	// b.Log(ShopspringDecimalCase2()) //  output: 1
 }
 
-func BenchmarkTidbDecimalCase2(b *testing.B) {
+func BenchmarkGoDecimalCase2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		TidbDecimalCase2()
+		goDecimalCaseB()
 	}
-	// b.Log(TidbDecimalCase2()) //  output: 1.0
 }
