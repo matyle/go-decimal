@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package decimaltest
+package decimal
 
 import (
 	"encoding/json"
@@ -691,7 +691,7 @@ func TestMulMyDecimal(t *testing.T) {
 		{"123", "0.01", "1.23", nil},
 		{"123", "0", "0", nil},
 		{"-0.0000000000000000000000000000000000000000000000000017382578996420603", "-13890436710184412000000000000000000000000000000000000000000000000000000000000", "0.000000000000000000000000000000", ErrTruncated},
-		{"1" + strings.Repeat("0", 60), "1" + strings.Repeat("0", 60), "0", ErrOverflow},
+		{"1" + strings.Repeat("1", 60), "1" + strings.Repeat("0", 60), "0", ErrOverflow},
 		{"0.5999991229316", "0.918755041726043", "0.5512522192246113614062276588", nil},
 		{"0.5999991229317", "0.918755041726042", "0.5512522192247026369112773314", nil},
 		{"0.000", "-1", "0.000", nil},
